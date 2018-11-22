@@ -38,6 +38,7 @@ features = [
     "Storage",
     "Text",
     "Window",
+    "console",
 ]
 
 [dev-dependencies]

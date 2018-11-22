@@ -44,10 +44,14 @@ impl<A: App> Instance<A> {
     }
 
     fn render(&self) {
+        #[cfg(debug_assertions)]
+        web_sys::console::time_with_label("App::render");
         let mut new_vnode = self.inner.app.borrow().render();
         let new_node = new_vnode.patch(&mut self.inner.vnode.borrow_mut(), self.mailbox());
         self.inner.vnode.replace(new_vnode);
         self.inner.node.replace(new_node);
+        #[cfg(debug_assertions)]
+        web_sys::console::time_end_with_label("App::render");
     }
 
     fn mailbox(&self) -> Mailbox<A::Message> {
